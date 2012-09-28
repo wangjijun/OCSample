@@ -1,0 +1,38 @@
+//cvAdaptiveThreshold 二值化图片
+	double max_value = 255;
+	int adpative_method = CV_ADAPTIVE_THRESH_MEAN_C; //CV_ADAPTIVE_THRESH_MEAN_C
+	int threshold_type = CV_THRESH_BINARY;
+	int block_size = 41; //阈值的象素邻域大小
+	int offset = 5; //窗口尺寸
+	cvAdaptiveThreshold(pImg, pImg, max_value, adpative_method, threshold_type,block_size, offset);
+	
+	
+     直方图结构
+	 //灰度直方图是灰度级的函数，描述图像中该灰度级的像素个数（或该灰度级像素出现的频率）：其横坐标是灰度级，纵坐标表示图像中该灰度级出现的个数（频率）。
+	 typedef struct CvHistogram
+	 {
+	 int     type;
+	 CvArr*  bins;  //存放每个灰度级数目的数组指针
+	 float   thresh[CV_MAX_DIM][2];  //均匀直方图
+	 float** thresh2; //非均匀直方图
+	 CvMatND mat;  //直方图数组的内部数据结构
+	 }
+	 CvHistogram;
+	 
+	 //创建直方图
+	 CvHistogram* cvCreateHist(
+	 int dims, //直方图维数
+	 int* sizes,//直翻图维数尺寸
+	 int type, //直方图的表示格式
+	 float** ranges=NULL, //图中方块范围的数组
+	 int uniform=1 //归一化标识
+	 );
+	 
+	 //计算直方图
+	void cvCalcHist( 
+	IplImage** image, //输入图像（也可用CvMat**）
+	CvHistogram* hist, //直方图指针
+    int accumulate=0, //累计标识。如果设置，则直方图在开始时不被清零。
+	const CvArr* mask=NULL //操作 mask, 确定输入图像的哪个象素被计数
+	);
+	 
